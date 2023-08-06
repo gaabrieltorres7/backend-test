@@ -15,7 +15,7 @@ export class PrismaUsersRepository implements UsersRepository{
 
     return user
   }
-
+  
   async findUserByName(name: string){
     const user = await prisma.user.findFirst({
       where: {
@@ -24,5 +24,23 @@ export class PrismaUsersRepository implements UsersRepository{
     })
 
     return user || null
+  }
+
+  async searchMany(query: string){
+    const lowerCaseQuery = query.toLowerCase()
+
+    if(!query) return await prisma.user.findMany();
+
+    const users = await prisma.user.findMany({
+      where: {
+        OR: [
+          { name: { contains: lowerCaseQuery } },
+          { city: { contains: lowerCaseQuery } },
+          { country: { contains: lowerCaseQuery } },
+          { favorite_sport: { contains: lowerCaseQuery } },
+        ],
+      },
+    })
+    return users;
   }
 }
