@@ -21,4 +21,21 @@ export class InMemoryUsersRepository implements UsersRepository {
 
     return user || null;
   }
+
+  async searchMany(query: string) {
+    const lowerCaseQuery = query.toLowerCase(); // Convert the query to lowercase for case-insensitive search
+  
+    const searchResults = this.items.filter((item) => {
+      const nameMatch = item.name.toLowerCase().includes(lowerCaseQuery);
+      const cityMatch = item.city.toLowerCase().includes(lowerCaseQuery);
+      const countryMatch = item.country.toLowerCase().includes(lowerCaseQuery);
+      const sportMatch = item.favorite_sport.toLowerCase().includes(lowerCaseQuery);
+  
+      // Return true if any of the properties match the query
+      return nameMatch || cityMatch || countryMatch || sportMatch;
+    });
+  
+    return searchResults;
+  }
+  
 }
