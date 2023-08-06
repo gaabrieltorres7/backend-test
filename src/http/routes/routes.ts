@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import multerConfig from '../utils/multer';
-import { csvFileUpload } from './csvFileUpload';
+import multerConfig from '../../utils/multer';
+import { csvFileUpload } from '../../http/controllers/csvFileUpload';
 
 const router = Router();
 
