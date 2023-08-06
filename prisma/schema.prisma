@@ -10,12 +10,12 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-model CsvFile {
+model User {
   id             String @id @default(uuid())
   name           String
   city           String
   country        String
   favorite_sport String
 
-  @@map("csv_files")
+  @@map("users")
 }
