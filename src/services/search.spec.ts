@@ -28,7 +28,7 @@ describe('Search service', () => {
     await usersRepository.insert(USER_JOHN)
     await usersRepository.insert(USER_JANE)
 
-    const { searchResults } = await sut.execute({ query: 'John' });
+    const { searchResults } = await sut.execute({ query: 'john' });
 
     expect(searchResults).toHaveLength(1);
     expect(searchResults[0]).toEqual(expect.objectContaining({ name: 'John Doe' }));
@@ -43,12 +43,12 @@ describe('Search service', () => {
     expect(searchResults).toHaveLength(2);
   })
 
-  test('should normalize query when it is not provided', async () => {
-    await usersRepository.insert(USER_JOHN);
-    await usersRepository.insert(USER_JANE);
+  test('should be able to search and return all users if query is undefined', async () => {
+    await usersRepository.insert(USER_JOHN)
+    await usersRepository.insert(USER_JANE)
 
-    const { searchResults } = await sut.execute({}); // No query provided
+    const { searchResults } = await sut.execute({ query: undefined });
 
     expect(searchResults).toHaveLength(2);
-  });
+  })
 })
