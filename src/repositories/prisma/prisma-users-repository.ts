@@ -40,9 +40,9 @@ export class PrismaUsersRepository implements UsersRepository {
   }
 
   async searchMany(query: string) {
-    const lowerCaseQuery = query.toLowerCase();
-
     if (!query) return await prisma.user.findMany();
+    
+    const lowerCaseQuery = query.toLowerCase();
 
     try {
       const users = await prisma.user.findMany({

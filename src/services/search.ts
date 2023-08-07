@@ -15,8 +15,8 @@ export class SearchService {
   constructor(private usersRepository: UsersRepository) {}
 
   async execute({ query }: SearchUsersServiceRequest): Promise<SearchUsersServiceResponse> {
-    const normalizedQuery = query ?? '';
-    const searchResults = await this.usersRepository.searchMany(normalizedQuery);
+    const searchTerm = query !== 'undefined' ? query : '';
+    const searchResults = await this.usersRepository.searchMany(searchTerm);
     return { searchResults };
   }
 }
