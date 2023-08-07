@@ -47,7 +47,7 @@ describe('Search service', () => {
     await usersRepository.insert(USER_JOHN)
     await usersRepository.insert(USER_JANE)
 
-    const { searchResults } = await sut.execute({ query: undefined });
+    const { searchResults } = await sut.execute({ query: 'undefined' });
 
     expect(searchResults).toHaveLength(2);
   })
