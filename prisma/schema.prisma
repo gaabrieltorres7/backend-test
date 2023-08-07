@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = "file:./dev.db"
+  url      = "file:./dev.db" //i did not create a .env file because it would be necessary to pass the information when someone clone the project
 }
 
 model User {

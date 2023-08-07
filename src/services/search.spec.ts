@@ -33,4 +33,13 @@ describe('Search service', () => {
     expect(searchResults).toHaveLength(1);
     expect(searchResults[0]).toEqual(expect.objectContaining({ name: 'John Doe' }));
   })
+
+  test('should be able to search and return all users if there is not a query', async () => {
+    await usersRepository.insert(USER_JOHN)
+    await usersRepository.insert(USER_JANE)
+
+    const { searchResults } = await sut.execute({ query: '' });
+
+    expect(searchResults).toHaveLength(2);
+  })
 })
