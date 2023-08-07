@@ -1,6 +1,6 @@
 import { User } from '@prisma/client';
-import { PrismaUsersRepository } from '../repositories/prisma/prisma-users-repository';
 import { UserAlreadyExistsError } from './errors/user-already-exists-error';
+import { UsersRepository } from '../repositories/users-repository';
 
 export interface InsertUsersServiceRequest {
   name: string;
@@ -14,7 +14,7 @@ interface InsertUsersServiceResponse {
 }
 
 export class InsertService {
-  constructor(private usersRepository: PrismaUsersRepository) {}
+  constructor(private usersRepository: UsersRepository) {}
 
   async execute(users: InsertUsersServiceRequest[]): Promise<InsertUsersServiceResponse[]> {
     const results: InsertUsersServiceResponse[] = [];

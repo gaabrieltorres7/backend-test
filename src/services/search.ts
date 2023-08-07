@@ -1,6 +1,6 @@
 
 import { User } from '@prisma/client';
-import { PrismaUsersRepository } from '../repositories/prisma/prisma-users-repository';
+import { UsersRepository } from '../repositories/users-repository';
 
 
 interface SearchUsersServiceRequest {
@@ -12,7 +12,7 @@ interface SearchUsersServiceResponse {
 }
 
 export class SearchService {
-  constructor(private usersRepository: PrismaUsersRepository) {}
+  constructor(private usersRepository: UsersRepository) {}
 
   async execute({ query }: SearchUsersServiceRequest): Promise<SearchUsersServiceResponse> {
     const searchResults = await this.usersRepository.searchMany(query && query !== 'undefined' ? query : '');
