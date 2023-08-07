@@ -17,25 +17,23 @@ export class InMemoryUsersRepository implements UsersRepository {
   }
 
   async findUserByName(name: string) {
-    const user = this.items.find((user) => user.name === name);
-
-    return user || null;
+    return this.items.find((user) => user.name === name) || null;
   }
 
   async searchMany(query: string) {
-    const lowerCaseQuery = query.toLowerCase(); // Convert the query to lowercase for case-insensitive search
+    if (!query) return this.items;
+
+    const lowerCaseQuery = query.toLowerCase(); 
   
-    const searchResults = this.items.filter((item) => {
-      const nameMatch = item.name.toLowerCase().includes(lowerCaseQuery);
-      const cityMatch = item.city.toLowerCase().includes(lowerCaseQuery);
-      const countryMatch = item.country.toLowerCase().includes(lowerCaseQuery);
-      const sportMatch = item.favorite_sport.toLowerCase().includes(lowerCaseQuery);
-  
-      // Return true if any of the properties match the query
-      return nameMatch || cityMatch || countryMatch || sportMatch;
+    return this.items.filter((item) => {
+      const matchQuery = (value: string) => value.toLowerCase().includes(lowerCaseQuery);
+
+      return (
+        matchQuery(item.name) ||
+        matchQuery(item.city) ||
+        matchQuery(item.country) ||
+        matchQuery(item.favorite_sport)
+      );
     });
-  
-    return searchResults;
   }
-  
 }
