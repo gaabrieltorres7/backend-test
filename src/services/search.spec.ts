@@ -5,25 +5,28 @@ import { SearchService } from './search';
 let usersRepository: InMemoryUsersRepository
 let sut: SearchService
 
+const USER_JOHN = {
+  name: 'John Doe',
+  city: 'New York',
+  country: 'USA',
+  favorite_sport: 'Soccer'
+}
+
+const USER_JANE = {
+  name: 'Jane Doe',
+  city: 'New York',
+  country: 'USA',
+  favorite_sport: 'Soccer'
+}
+
 describe('Search service', () => {
   beforeEach(() => {
     usersRepository = new InMemoryUsersRepository()
     sut = new SearchService(usersRepository)
   })
   test('should be able to search for any colunm by query', async () => {
-    await usersRepository.insert({
-      name: 'John Doe',
-      city: 'New York',
-      country: 'USA',
-      favorite_sport: 'Soccer'
-    })
-
-    await usersRepository.insert({
-      name: 'Jane Doe',
-      city: 'New York',
-      country: 'USA',
-      favorite_sport: 'Soccer'
-    })
+    await usersRepository.insert(USER_JOHN)
+    await usersRepository.insert(USER_JANE)
 
     const { searchResults } = await sut.execute({ query: 'John' });
 
